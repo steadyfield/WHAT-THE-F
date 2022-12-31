@@ -74,9 +74,9 @@ git clone --depth 1 https://github.com/nillerusr/srceng-mod-launcher
 		sed -e "s/1337/$VPK_VERSION/g" -i src/me/nillerusr/ExtractAssets.java
 	fi
 
-	ant debug &&
-	sshpass -p $SSH_PASS scp -o StrictHostKeyChecking=no bin/srcmod-debug.apk nillerusr@nillerusr.fvds.ru:/var/www/html/c4mf4stin3/${MOD_NAME}-${MOD_VER}_96.apk
-	../scripts/send-to-discord.py $3 build test 96 - http://nillerusr.fvds.ru/c4mf4stin3/${MOD_NAME}-${MOD_VER}_96.apk
+	ant debug || exit 1
+	OUT=$(curl --upload-file bin/srcmod-debug.apk https://transfer.sh/$MOD_NAME-$MOD_VER.apk)
+	../scripts/send-to-discord.py $3 build test 32 - $OUT #http://nillerusr.fvds.ru/c4mf4stin3/$MOD_NAME-$MOD_VER.apk
 
 #}
 
