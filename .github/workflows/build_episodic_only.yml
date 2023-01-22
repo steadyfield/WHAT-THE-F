@@ -1,0 +1,20 @@
+name: Build episodic only
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-episodic-only:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build episodic only
+      run: |
+        ./deploy96.sh episodic 1.04 "Half-Life 2 EP1,2"
+    - uses: actions/upload-artifact@v3
+      with:
+        name: episodic-android
+        path: ./srceng-mod-launcher/bin
+        if-no-files-found: error
+ 
