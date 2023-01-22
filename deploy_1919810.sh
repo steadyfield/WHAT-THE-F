@@ -21,7 +21,7 @@ export ANDROID_HOME=$(pwd)/android-sdk/
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 
 mkdir -p libs/ apks/
-git clone --depth 1 https://github.com/steadyfield/srceng-mod-launcher
+git clone --recursive --depth 1 https://github.com/steadyfield/srceng-android
 
 #build()
 #{
@@ -34,26 +34,77 @@ git clone --depth 1 https://github.com/steadyfield/srceng-mod-launcher
 
 #32 bit
 	cd source-engine-ci/
-	./waf configure -T release --android=armeabi-v7a-hard,host,21 --prefix=android/ --togles --build-game=$MOD_NAME --use-ccache --disable-warns || (cat build/config.log;exit)
-	./waf install --target=client,server || exit
+	./waf configure -T release --android=armeabi-v7a-hard,host,21 --prefix=android/ --togles --disable-warns || (cat build/config.log;exit)
+	./waf install || exit
 	mkdir -p ../libs/$1
 
 	mkdir -p ../libs/$1/armeabi-v7a
 
-	cp android/lib/armeabi-v7a/libserver.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libtier0.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libvstdlib.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libsteam_api.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libtogl.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libdatacache.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libvaudio_minimp3.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libengine.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libfilesystem_stdio.so ../libs/$1/armeabi-v7a
 	cp android/lib/armeabi-v7a/libclient.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libserver.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libGameUI.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libinputsystem.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/liblauncher.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libmaterialsystem.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libshaderapidx9.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libstdshader_dx9.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libscenefilecache.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libServerBrowser.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libsoundemittersystem.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libstudiorender.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libvgui2.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libvguimatsurface.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libvideo_services.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libvphysics.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libvtex_dll.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libvaudio_opus.so ../libs/$1/armeabi-v7a
+	cp android/lib/armeabi-v7a/libSDL2.so ../libs/$1/armeabi-v7a
 	rm -rf android/
 
 #64 bit
-	./waf configure -T release --android=aarch64,host,21 -8 --prefix=android/ --togles --build-game=$MOD_NAME --use-ccache --disable-warns || (cat build/config.log;exit)
-	./waf install --target=client,server || exit
+	./waf configure -T release --android=aarch64,host,21 -8 --prefix=android/ --togles --disable-warns || (cat build/config.log;exit)
+	./waf install || exit
 	mkdir -p ../libs/$1/arm64-v8a
 
-	cp android/lib/arm64-v8a/libserver.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libtier0.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libvstdlib.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libsteam_api.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libtogl.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libdatacache.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libvaudio_minimp3.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libengine.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libfilesystem_stdio.so ../libs/$1/arm64-v8a
 	cp android/lib/arm64-v8a/libclient.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libserver.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libGameUI.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libinputsystem.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/liblauncher.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libmaterialsystem.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libshaderapidx9.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libstdshader_dx9.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libscenefilecache.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libServerBrowser.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libsoundemittersystem.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libstudiorender.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libvgui2.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libvguimatsurface.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libvideo_services.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libvphysics.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libvtex_dll.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libvaudio_opus.so ../libs/$1/arm64-v8a
+	cp android/lib/arm64-v8a/libSDL2.so ../libs/$1/arm64-v8a
+	
 	rm -rf android/
 
-	cd ../srceng-mod-launcher/
+	cd ../srceng-android/
 	git checkout .
 	sed -e "s/MOD_REPLACE_ME/$MOD_NAME/g" -i AndroidManifest.xml src/me/nillerusr/LauncherActivity.java
 	sed -e "s/APP_NAME/$APP_NAME/g" -i res/values/strings.xml
