@@ -15,13 +15,13 @@ export PATH=$(pwd)/clang/bin:$PATH
 mv android-ndk-r10e ndk/
 export ANDROID_NDK_HOME=$(pwd)/ndk
 
-git clone --depth 1 https://github.com/nillerusr/source-engine/ --recursive
+git clone --depth 1 https://github.com/steadyfield/source-engine-ci/ --recursive
 git clone --depth 1 https://gitlab.com/LostGamer/android-sdk
 export ANDROID_HOME=$(pwd)/android-sdk/
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 
 mkdir -p libs/ apks/
-git clone --depth 1 https://github.com/nillerusr/srceng-mod-launcher
+git clone --depth 1 https://github.com/steadyfield/srceng-mod-launcher
 
 #build()
 #{
@@ -33,7 +33,7 @@ git clone --depth 1 https://github.com/nillerusr/srceng-mod-launcher
 
 
 #32 bit
-	cd source-engine/
+	cd source-engine-ci/
 	./waf configure -T release --android=armeabi-v7a-hard,host,21 --prefix=android/ --togles --build-game=$MOD_NAME --use-ccache --disable-warns || (cat build/config.log;exit)
 	./waf install --target=client,server || exit
 	mkdir -p ../libs/$1
@@ -75,8 +75,8 @@ git clone --depth 1 https://github.com/nillerusr/srceng-mod-launcher
 	fi
 
 	ant debug || exit 1
-	OUT=$(curl --upload-file bin/srcmod-debug.apk https://transfer.sh/$MOD_NAME-$MOD_VER.apk)
-	../scripts/send-to-discord.py $3 build test 32 - $OUT #http://nillerusr.fvds.ru/c4mf4stin3/$MOD_NAME-$MOD_VER.apk
+	#OUT=$(curl --upload-file bin/srcmod-debug.apk https://transfer.sh/$MOD_NAME-$MOD_VER.apk)
+	curl --upload-file bin/srcmod-debug.apk https://transfer.sh/$MOD_NAME-$MOD_VER.apk
 
 #}
 
